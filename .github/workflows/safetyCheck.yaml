@@ -12,7 +12,7 @@ on:
       - main
 
 env:
-  DEP_PATH: requirements_safety_check.txt
+  DEP_PATH: requirements.txt
 
 jobs:
   python-safety-test:
