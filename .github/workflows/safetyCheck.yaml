@@ -1,0 +1,38 @@
+name: SafetyCheck
+
+on: 
+  push:
+    branches:
+      - master
+      - main
+
+  pull_request:
+    branches:
+      - master
+      - main
+
+env:
+  DEP_PATH: requirements_safety_check.txt
+
+jobs:
+  python-safety-test:
+
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        python-version: ["3.7"]
+
+    steps:
+      - name: Check out master
+        uses: actions/checkout@master
+
+      - name: upgrade pip
+        run: |
+          sudo apt-get install -y build-essential libpoppler-cpp-dev pkg-config python3-dev
+          sudo apt-get install -y build-essential libpoppler-dev libpoppler-cpp-dev pkg-config python-dev
+          python -m pip install --upgrade pip
+
+      - name: Security vulnerabilities scan
+        uses: aufdenpunkt/python-safety-check@master
+        with:
+          safety_args: '-i 38464 -i 40636 -i 41069 -i 41051'
