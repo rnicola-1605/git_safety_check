@@ -33,6 +33,10 @@ jobs:
           pip install --upgrade pip
 
       - name: Security vulnerabilities scan
+        run: |
+            sudo apt-get install -y build-essential libpoppler-cpp-dev pkg-config python3-dev
+            sudo apt-get install -y build-essential libpoppler-dev libpoppler-cpp-dev pkg-config python-dev
+            pip install --upgrade pip
         uses: aufdenpunkt/python-safety-check@master
         with:
           safety_args: '-i 38464 -i 40636 -i 41069 -i 41051'
